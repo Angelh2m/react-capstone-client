@@ -16,6 +16,7 @@ import contactForm from './contact-form';
 import TaggedPosts from './Tagged-posts';
 import NoMatch from './NoMatch';
 import { refreshAuthToken } from '../actions/auth';
+import { Helmet } from 'react-helmet';
 
 
 import {
@@ -56,8 +57,18 @@ export class Blog extends Component {
     }
 
     render() {
+        let location = this.props.location.pathname.split('/');
         return (
             <div className="app">
+                <div>
+                    <Helmet>
+                        <title>Annah's blog | {location[location.length - 1].replace(/(-)/g, ' ')}</title>
+                        <meta name="description" content="Annah's blog" />
+                        <meta name="theme-color" content="" />
+                    </Helmet>
+                    {console.log()
+                    }
+                </div>
                 <Navbar />
                 <Header />
                 <div className="flex-container">

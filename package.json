@@ -18,9 +18,10 @@
         "react": "^16.5.0",
         "react-dom": "^16.5.0",
         "react-draft-wysiwyg": "^1.12.13",
+        "react-helmet": "^5.2.0",
         "react-redux": "^5.0.7",
         "react-router-dom": "^4.3.1",
-        "react-scripts": "1.1.5",
+        "react-scripts": "2.0.3",
         "react-test-renderer": "^16.2.0",
         "react-text-truncate": "^0.13.1",
         "redux": "^4.0.0",
@@ -36,7 +37,13 @@
         "deploy": "aws s3 cp ./build s3://annahs/ --recursive"
     },
     "devDependencies": {
-        "node-sass": "^4.9.3",
+        "node-sass": "^4.9.4",
         "nodemon": "^1.18.4"
-    }
+    },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ]
 }
