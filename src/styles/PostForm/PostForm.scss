@@ -2,9 +2,40 @@ textarea {
     display: block;
 }
 
+.published {
+    width: 10%;
+}
+
 .message {
     color: $blue-green;
     text-transform: uppercase;
     margin-bottom: 10px;
     font-family: $font-stack;
+}
+
+.img-thumbnail {
+    width: 100%;
+}
+
+.image-thumbnail {
+    width: 100%;
+}
+
+.images-available {
+    width: 35%;
+    float: left;
+    position: relative;
+
+    span {
+        position: absolute;
+        color: #607D8B;
+        background-color: white;
+        padding: .5rem .6rem;
+        border-radius: 50%;
+        line-height: 1;
+        margin-top: .5rem;
+        font-size: .7rem;
+        margin-left: .5rem;
+        cursor: pointer;
+    }
 }

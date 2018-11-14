@@ -5,22 +5,29 @@
 #social-media {
     ul {
         display: flex;
+        justify-content: space-between;
+        padding-left: 0px;
     }
+
     li {
         list-style-type: none;
         margin: 5px;
     }
+
     a {
         text-decoration: none;
         color: $blue-green;
         transition: all .2s ease-in-out;
+
         i {
             font-size: 30px;
         }
+
         &:hover {
             color: $hover-green;
         }
     }
+
     h3 {
         @include font;
         text-transform: uppercase;
@@ -29,12 +36,14 @@
 
 #sidebar {
     display: block;
+
     h3 {
         a {
             text-decoration: none;
             @include font;
         }
     }
+
     p {
         color: $dark-gray;
         font-family: $font-stack;

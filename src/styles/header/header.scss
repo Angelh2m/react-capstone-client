@@ -1,19 +1,33 @@
 header {
-    padding: 7% 0;
-    text-align: center;
-    margin-top: 85px;
-    padding-bottom: 0;
+    // padding: 7% 0;
+    // text-align: center;
+    // margin-top: 85px;
+    // padding-bottom: 0;
 
     @include desktop {
         margin-top: 0;
     }
 
     .logo {
-        width: 50%;
+        width: 100%;
+        display: block;
+        margin: auto;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+
+
+        @include desktop {
+            width: 100%;
+            margin-top: 5rem;
+        }
     }
 
     a {
         text-decoration: none;
+        position: relative;
+        display: block;
+        width: 45%;
+        margin: auto;
 
         h1 {
             font-family: $cursive-font;
@@ -29,7 +43,5 @@ header {
         }
     }
 
-    hr {
-        margin-top: 90px;
-    }
+
 }

@@ -12,6 +12,8 @@ import RegistrationPage from './registration-page';
 import Login from './login';
 import Homepage from './homepage';
 import Post from './Post';
+import Category from './Category';
+import Search from './Search';
 import contactForm from './contact-form';
 import TaggedPosts from './Tagged-posts';
 import NoMatch from './NoMatch';
@@ -52,22 +54,21 @@ export class Blog extends Component {
         if (!this.refreshInterval) {
             return;
         }
-
         clearInterval(this.refreshInterval);
     }
+    // <Route exact path="/contact" component={contactForm} />
 
     render() {
         let location = this.props.location.pathname.split('/');
+        let locName = location[location.length - 1];
+        console.log(location, locName);
+
         return (
             <div className="app">
                 <div>
                     <Helmet>
-                        <title>Annah's blog | {location[location.length - 1].replace(/(-)/g, ' ')}</title>
-                        <meta name="description" content="Annah's blog" />
-                        <meta name="theme-color" content="" />
+                        <title>Living With Annah | {locName !== '' ? locName : location[1]}</title>
                     </Helmet>
-                    {console.log()
-                    }
                 </div>
                 <Navbar />
                 <Header />
@@ -80,8 +81,9 @@ export class Blog extends Component {
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/posts" component={Posts} />
                             <Route exact path="/" component={Homepage} />
-                            <Route exact path="/contact" component={contactForm} />
-                            <Route exact path="/posts/post/:postSlug" component={Post} />
+                            <Route exact path="/search/:topic" component={Search} />
+                            <Route exact path="/:category" component={Category} />
+                            <Route exact path="/:category/:postSlug" component={Post} />
                             <Route exact path="/tags/:tag" component={TaggedPosts} />
                             <Route component={NoMatch} />
                         </Switch>

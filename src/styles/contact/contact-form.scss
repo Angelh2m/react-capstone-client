@@ -14,10 +14,10 @@ button {
 input {
     width: 100%;
     padding: 10px;
-    font-size: 11px;
-    @include desktop {
-        width: 70%;
-    }
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+
+
 }
 
 h2 {

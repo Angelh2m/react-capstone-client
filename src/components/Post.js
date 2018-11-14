@@ -48,7 +48,9 @@ export class Post extends React.Component {
 
     componentDidMount() {
         this.loadDisqus();
-        const slug = this.props.location.pathname.split('/')[3];
+        const category = this.props.location.pathname.split('/')[1];
+        const slug = this.props.location.pathname.split('/')[2];
+        console.log(category);
 
 
         return fetch(`${API_BASE_URL}/posts/post/${slug}`)
@@ -57,6 +59,10 @@ export class Post extends React.Component {
                 throw new Error(res.error);
             })
             .then(data => {
+                console.log(data);
+                if (category !== data.category) {
+                    throw new Error('Error');
+                }
                 this.setState({
                     post: data,
                     tags: data.tags
@@ -90,7 +96,7 @@ export class Post extends React.Component {
             return (
                 <section id="post">
                     <Helmet>
-                        <meta name="description" content={'Single POST '} />
+                        <meta name="description" content={post.metaDescription} />
                     </Helmet>
                     {
                         this.props.loggedIn ?
@@ -100,14 +106,14 @@ export class Post extends React.Component {
                     }
                     <h2>{post.title}</h2>
                     <img src={post.image} />
-                    <p>{post.body}</p>
+                    <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
                     <div id="flex-container-tags">
                         <h3>Tagged with: </h3>
                         <ul>
                             {tags.map((tag, i) => <li key={i}><Link to={`/tags/${tag}`}>{tag}</Link></li>)}
                         </ul>
                     </div>
-                    <h2>COMMENTS:</h2>
+                    <h4>COMMENTS:</h4>
                     <div id="disqus_thread"></div>
                 </section>
             )

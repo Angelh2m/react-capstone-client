@@ -3,24 +3,32 @@
 }
 
 #posts-section {
-    @include desktop {
-        width: 800px;
-    }
+
     span {
         @include paragraph;
+
         @include desktop {
             width: 80%;
         }
     }
+
     img {
         width: 100%;
+
         @include desktop {
-            width: 80%;
+            width: 100%;
         }
     }
+
     a {
         text-decoration: none;
     }
+
+    p {
+        line-height: 2;
+        text-align: justify;
+    }
+
     button {
         display: block;
     }
@@ -49,6 +57,7 @@
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { reduxForm, Field, SubmissionError, focus } from 'redux-form';
 import Input from './input';
-import { required, nonEmpty, email } from '../validators';
+import { required, nonEmpty } from '../validators';
 import { API_BASE_URL } from '../config';
 import { loadAuthToken } from '../local-storage';
 
@@ -17,7 +17,8 @@ export class PostForm extends React.Component {
         super(props);
         this.state = {
             editorState: EditorState.createEmpty(),
-            body: ''
+            body: '',
+
         }
         this.htmlBody = React.createRef();
     }
@@ -27,14 +28,20 @@ export class PostForm extends React.Component {
         this.setState({
             editorState,
         });
-        console.log(this.htmlBody.current.defaultValue);
+
     };
 
     onSubmit(values) {
+
         const payload = {
             ...values,
-            body: this.htmlBody.current.defaultValue
+            body: this.htmlBody.current.defaultValue,
+            seoUrl: values.seoUrl.replace(/[\W]+/g, '-'),
+            category: values.category.replace(/[\W]+/g, '-')
         }
+
+        console.log(payload);
+
 
         const token = loadAuthToken();
         fetch(`${API_BASE_URL}/posts`, {
@@ -46,7 +53,6 @@ export class PostForm extends React.Component {
             }
         })
             .then(res => {
-
                 if (!res.ok) {
                     if (
                         res.headers.has('content-type') &&
@@ -84,6 +90,8 @@ export class PostForm extends React.Component {
             });
     }
 
+
+
     render() {
         let successMessage;
         if (this.props.submitSucceeded) {
@@ -104,57 +112,61 @@ export class PostForm extends React.Component {
         const { editorState } = this.state;
 
         return (
-            <form
-                onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
-            >
-                <h2>MAKE NEW BLOG POST</h2>
-                {successMessage}
-                {errorMessage}
-                <Field
-                    name="title"
-                    type="text"
-                    component={Input}
-                    label="Title"
-                    validate={[required, nonEmpty]}
-                />
-                <Field
-                    name="body"
-                    element="textarea"
-                    component={Input}
-                    label="Body"
-                    validate={[required, nonEmpty]}
-                />
-                <Editor
-                    editorState={editorState}
-                    wrapperClassName="demo-wrapper"
-                    editorClassName="demo-editor"
-                    onEditorStateChange={this.onEditorStateChange}
-                />
-                <textarea
-                    disabled
-                    value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-                    ref={this.htmlBody}
-                />
-                <Field
-                    name="image"
-                    type="text"
-                    component={Input}
-                    label="Image URL"
-                    validate={[required, nonEmpty]}
-                />
-                <Field
-                    name="tags"
-                    type="text"
-                    component={Input}
-                    label="Tags"
-                    validate={[required, nonEmpty]}
-                />
-                <button
-                    type="submit"
-                    disabled={this.props.pristine || this.props.submitting}>
-                    Make Post
+            <div>
+                <form
+                    onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+                >
+                    <h2>MAKE NEW BLOG POST</h2>
+                    {successMessage}
+                    {errorMessage}
+                    <Field
+                        name="title"
+                        type="text"
+                        component={Input}
+                        label="Title"
+                        validate={[required, nonEmpty]}
+                    />
+                    <Field
+                        name="category"
+                        element="textarea"
+                        component={Input}
+                        label="Category"
+                        validate={[required, nonEmpty]}
+                    />
+                    <Field
+                        name="seoUrl"
+                        element="seoUrl"
+                        component={Input}
+                        label="seoUrl"
+                        validate={[required, nonEmpty]}
+                    />
+                    <Field
+                        name="metaDescription"
+                        element="metaDescription"
+                        component={Input}
+                        label="metaDescription"
+                        validate={[required, nonEmpty]}
+                    />
+
+                    <Editor
+                        editorState={editorState}
+                        wrapperClassName="demo-wrapper"
+                        editorClassName="demo-editor"
+                        onEditorStateChange={this.onEditorStateChange}
+                    />
+                    <textarea
+                        disabled
+                        value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                        ref={this.htmlBody}
+                    />
+
+                    <button
+                        type="submit"
+                        disabled={this.props.pristine || this.props.submitting}>
+                        Make Post
                 </button>
-            </form>
+                </form>
+            </div>
         )
     }
 }

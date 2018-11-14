@@ -17,10 +17,11 @@ export const fetchPostsError = error => ({
     error
 })
 
-export const fetchPosts = num => dispatch => {
+export const fetchPosts = (num, category) => dispatch => {
     dispatch(fetchPostsRequest());
+    let cat = category ? category : ' ';
 
-    fetch(`${API_BASE_URL}/posts/${num}`)
+    fetch(`${API_BASE_URL}/${cat}/${num}`)
         .then(res => {
             return res.json()
         })
